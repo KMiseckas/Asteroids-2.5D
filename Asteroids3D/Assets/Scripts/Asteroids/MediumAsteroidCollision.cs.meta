@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 472ab160d30565f40bae70e3348d3acb
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - smallAsteroid: {instanceID: 0}
+  - playership: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
