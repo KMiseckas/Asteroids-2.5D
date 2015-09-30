@@ -5,6 +5,7 @@ public class PlayerLives : MonoBehaviour
 {
 
 	public static int playerLives = 3;
+	public bool levelFailed = false;
 
 	LevelManager levelManager;
 
@@ -15,8 +16,9 @@ public class PlayerLives : MonoBehaviour
 
 	void Update()
 	{
-		if(playerLives < 0)
+		if(playerLives < 0 && !levelFailed)
 		{
+			levelFailed = true;
 			levelManager.LevelFailed();
 
 			//RESET LIVE SOMEWHERE

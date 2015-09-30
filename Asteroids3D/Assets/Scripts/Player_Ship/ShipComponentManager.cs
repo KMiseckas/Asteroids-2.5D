@@ -3,10 +3,10 @@ using System.Collections;
 
 public class ShipComponentManager : MonoBehaviour 
 {
-
+	//Ship Component Scripts
 	AICannon cannon;
 	UltraSound ultraSound;
-	ControlTweaks controlT;
+	ControlTweaks controlTweaks;
 	Shield shield;
 
 	ShipShooting shootScript;
@@ -15,12 +15,16 @@ public class ShipComponentManager : MonoBehaviour
 	{
 		cannon = GetComponent<AICannon>();
 		ultraSound = GetComponent<UltraSound>();
-		controlT = GetComponent<ControlTweaks>();
+		controlTweaks = GetComponent<ControlTweaks>();
 		shield = GetComponent<Shield>();
 
 		shootScript = GetComponent<ShipShooting>();
 	}
 
+	/// <summary>
+	/// Adds the utility that is chosen onto the ship, only 1 utility active on ship
+	/// </summary>
+	/// <param name="utilityName">Utility name.</param>
 	public void ActivateUtility(string utilityName)
 	{
 		switch(utilityName)
@@ -28,7 +32,7 @@ public class ShipComponentManager : MonoBehaviour
 		case "AICannon":
 			cannon.enabled = true;
 
-			controlT.enabled = false;
+			controlTweaks.enabled = false;
 			ultraSound.enabled = false;
 			shield.enabled = false;
 			break;
@@ -36,33 +40,33 @@ public class ShipComponentManager : MonoBehaviour
 			shield.enabled = true;
 
 			cannon.enabled = false;
-			controlT.enabled = false;
+			controlTweaks.enabled = false;
 			ultraSound.enabled = false;
 			break;
 		case "UltraSound":
 			ultraSound.enabled = true;
 
 			cannon.enabled = false;
-			controlT.enabled = false;
+			controlTweaks.enabled = false;
 			shield.enabled = false;
 			break;
 		case "CreditMagnet":
 
 
 			cannon.enabled = false;
-			controlT.enabled = false;
+			controlTweaks.enabled = false;
 			ultraSound.enabled = false;
 			shield.enabled = false;
 			break;
 		case "ControlTweaks":
-			controlT.enabled = true;
+			controlTweaks.enabled = true;
 
 			ultraSound.enabled = false;
 			cannon.enabled = false;
 			shield.enabled = false;
 			break;
 		case "Null":
-			controlT.enabled = false;
+			controlTweaks.enabled = false;
 			ultraSound.enabled = false;
 			cannon.enabled = false;
 			shield.enabled = false;
@@ -70,11 +74,19 @@ public class ShipComponentManager : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Activates the weapon chosen for the ship
+	/// </summary>
+	/// <param name="weaponName">Weapon name.</param>
 	public void ActivateMainWeapon(string weaponName)
 	{
 		shootScript.WeaponType = weaponName;
 	}
 
+	/// <summary>
+	/// Activates the special ability chosen for the ship
+	/// </summary>
+	/// <param name="abilityName">Ability name.</param>
 	public void ActivateSpecialAbility(string abilityName)
 	{
 		shootScript.SecWeaponType = abilityName;

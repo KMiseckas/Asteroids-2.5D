@@ -28,6 +28,10 @@ TagManager:
   - UltraSound
   - Shield
   - StoreManager
+  - UIToHide
+  - TransitionUI
+  - GameOverPanel
+  - WinPanel
   layers:
   - Default
   - TransparentFX

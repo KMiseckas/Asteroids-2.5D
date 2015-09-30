@@ -20,19 +20,21 @@ public class UltraSound : MonoBehaviour
 
 	public static int currentCoolDown;
 
-	public bool UltraSoundEnabled {
-		get {
-			return ultraSoundEnabled;
-		}
-		set {
-			ultraSoundEnabled = value;
-		}
+	DisplayWeaponStats weapText;
+
+	public bool UltraSoundEnabled 
+	{
+		get {return ultraSoundEnabled;}
+		set {ultraSoundEnabled = value;}
 	}
 
 	void Start()
 	{
 		counter = waveAmount;
 		ultraSoundCoolDown = 100;
+
+		weapText = GetComponent<DisplayWeaponStats> ();
+		weapText.DisplayUtility ("Ultrasound: 100%");
 	}
 
 	void Update()
@@ -67,6 +69,8 @@ public class UltraSound : MonoBehaviour
 		{
 			ultraSoundCoolDown = 50;
 		}
+
+		weapText.DisplayUtility ("Ultrasound: " + ultraSoundCoolDown.ToString () + "%");
 	}
 	
 	void StartUltraSound()

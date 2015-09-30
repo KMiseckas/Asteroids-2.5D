@@ -1,10 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\Documents\GitHub\UnityPlatformerGame1\PlatformerProject\Assets\Scripts\Zones\Death Zone\DeathZoneFollow.cs">
-    <Files>
-      <File FileName="..\..\..\Documents\GitHub\UnityPlatformerGame1\PlatformerProject\Assets\Scripts\Zones\Death Zone\DeathZoneFollow.cs" Line="1" Column="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,16 +14,26 @@ public class LevelManager : MonoBehaviour
 	public static bool isLevelBegginning = false;
 
 	List<AsteroidsToSpawn> asteroidsToSpawn;
+	private GameObject hideUI;
+	private GameObject transitionUI;
 
 	[Header("Current Level + 1")]
-	[SerializeField]
-	private int currentLevel = 0;
+	[SerializeField] private int currentLevel = 0;
 	public static bool canStartLevel = true;
 
 	public static int nextLevel;
 
+	public GameObject gameOverPanel;
+	public GameObject winGamePanel;
+
 	AsteroidSpawning spawnAsteroids;
 	SaveObjectOverScene DontDestroyScript;
+
+	public int CurrentLevel 
+	{
+		get {return currentLevel;}
+		set {currentLevel = value;}
+	}
 
 	void Start()
 	{
@@ -44,15 +54,29 @@ public class LevelManager : MonoBehaviour
 			StartNewLevel();
 			canStartLevel = false;
 		}
+		//print (nextLevel);
 	}
 
 	public void StartNewLevel()
 	{
-		if(GameObject.FindGameObjectWithTag("StoreManager") != null)
-		{
-			GameObject.FindGameObjectWithTag("StoreManager").GetComponent<Attachments>().SetAttachmentsToShip();
-			Destroy(GameObject.FindGameObjectWithTag("StoreManager"));
-		}
+		//Allows pausing to be activated on game start
+		GamePause.isPauseEnabled = true;
+
+		PlayerLives.playerLives = 3;
+
+		//Get all essential component / gameObjects that need changing for the level to start correctly
+
+		GetComponent<Attachments>().SetAttachmentsToShip();
+
+		hideUI = GameObject.FindGameObjectWithTag ("UIToHide");
+		transitionUI = GameObject.FindGameObjectWithTag ("TransitionUI");
+		gameOverPanel = GameObject.FindGameObjectWithTag ("GameOverPanel");
+		winGamePanel = GameObject.FindGameObjectWithTag ("WinPanel");
+		GetComponent<PlayerLives> ().levelFailed = false;
+
+		gameOverPanel.SetActive (false);
+		transitionUI.SetActive (false);
+		winGamePanel.SetActive (false);
 
 		//Debug.Log("STARTING ASTEROID SPAWNING");
 
@@ -295,22 +319,28 @@ public class LevelManager : MonoBehaviour
 			switch(currentLevel)
 			{
 			case 35:
-				NewAsteroid("Normal_Medium",2);
+				NewAsteroid("Diamond_Large",4);
+				NewAsteroid("Ice_Medium",3);
+				NewAsteroid("Diamond_Medium",2);
+				NewAsteroid("Diamond_Small",3);
 				break;
 			case 36:
-				NewAsteroid("Normal_Medium",2);
-				NewAsteroid("Normal_Small",1);
+				NewAsteroid("Diamond_Large",4);
+				NewAsteroid("Ice_Medium",5);
+				NewAsteroid("Diamond_Medium",3);
+				NewAsteroid("Diamond_Small",2);
 				break;
 			case 37:
-				NewAsteroid("Normal_Medium",3);
-				NewAsteroid("Normal_Small",1);
+				NewAsteroid("Diamond_Large",10);
+				NewAsteroid("Diamond_Medium",2);
 				break;
 			case 38:
-				NewAsteroid("Normal_Medium",2);
-				NewAsteroid("Normal_Small",3);
+				NewAsteroid("Diamond_Large",5);
+				NewAsteroid("Diamond_Small",15);
 				break;
 			case 39:
-
+				NewAsteroid("Diamond_Medium",6);
+				NewAsteroid("Diamond_Small",8);
 				break;
 			}
 		}
@@ -319,22 +349,26 @@ public class LevelManager : MonoBehaviour
 			switch(currentLevel)
 			{
 			case 40:
-				NewAsteroid("Normal_Medium",2);
+				NewAsteroid("Diamond_Large",6);
+				NewAsteroid("Ice_Large",6);
+				NewAsteroid("Diamond_Medium",6);
 				break;
 			case 41:
-				NewAsteroid("Normal_Medium",2);
-				NewAsteroid("Normal_Small",1);
+				NewAsteroid("Diamond_Small",30);
 				break;
 			case 42:
-				NewAsteroid("Normal_Medium",3);
-				NewAsteroid("Normal_Small",1);
+				NewAsteroid("Diamond_Large",10);
 				break;
 			case 43:
-				NewAsteroid("Normal_Medium",2);
-				NewAsteroid("Normal_Small",3);
+				NewAsteroid("Diamond_Large",4);
+				NewAsteroid("Diamond_Small",13);
 				break;
 			case 44:
-
+				NewAsteroid("Diamond_Large",5);
+				NewAsteroid("Ice_Large",2);
+				NewAsteroid("Normal_Medium",2);
+				NewAsteroid("Normal_Large",2);
+				NewAsteroid("Diamond_Small",4);
 				break;
 			}
 		}
@@ -343,32 +377,45 @@ public class LevelManager : MonoBehaviour
 			switch(currentLevel)
 			{
 			case 45:
-				NewAsteroid("Normal_Medium",2);
+				NewAsteroid("Diamond_Large",1);
+				NewAsteroid("Ice_Large",2);
+				NewAsteroid("Normal_Large",3);
+				NewAsteroid("Heavy_Large",2);
+				NewAsteroid("Ice_Small",2);
 				break;
 			case 46:
-				NewAsteroid("Normal_Medium",2);
-				NewAsteroid("Normal_Small",1);
+				NewAsteroid("Diamond_Large",1);
+				NewAsteroid("Heavy_Large",2);
+				NewAsteroid("Normal_Medium",5);
+				NewAsteroid("Heavy_Small",5);
 				break;
 			case 47:
-				NewAsteroid("Normal_Medium",3);
-				NewAsteroid("Normal_Small",1);
+				NewAsteroid("Diamond_Large",3);
+				NewAsteroid("Normal_Small",4);
+				NewAsteroid("Heavy_Small",13);
 				break;
 			case 48:
-				NewAsteroid("Normal_Medium",2);
-				NewAsteroid("Normal_Small",3);
+				NewAsteroid("Normal_Large",7);
+				NewAsteroid("Heavy_Large",3);
+				NewAsteroid("Diamond_Medium",2);
+				NewAsteroid("Ice_Small",7);
 				break;
 			case 49:
-
+				NewAsteroid("Diamond_Large",6);
+				NewAsteroid("Ice_Large",4);
+				NewAsteroid("Ice_Medium",6);
+				NewAsteroid("Diamond_Medium",2);
+				NewAsteroid("Diamond_Small",3);
 				break;
 			}
 		}
 		else if(currentLevel == 50)
 		{
-
-		}
-		else if(currentLevel == 51)
-		{
-			//END GAME
+			NewAsteroid("Diamond_Large",1);
+			NewAsteroid("Ice_Large",1);
+			NewAsteroid("Ice_Medium",6);
+			NewAsteroid("Diamond_Medium",2);
+			NewAsteroid("Diamond_Small",10);
 		}
 		#endregion
 
@@ -382,24 +429,59 @@ public class LevelManager : MonoBehaviour
 		//Debug.Log("FINISHED ASTEROID SPAWNING");
 	}
 
+	/// <summary>
+	/// Level success, allows for the next level to be reached
+	/// </summary>
 	public void LevelSucceeded()
 	{
-		Debug.Log("LEVEL SUCCEEDED");
+		//Debug.Log("LEVEL SUCCEEDED");
+		if(currentLevel != 50)
+		{
+			GamePause.isPauseEnabled = false;
+			hideUI.SetActive(false);
+			transitionUI.SetActive (true);
+		}
+		else
+		{
+			GamePause.isPauseEnabled = false;
+			hideUI.SetActive(true);
 
-		Application.LoadLevel("LevelTransition");
+			winGamePanel.SetActive(true);
+
+			SaveScore();
+			ResetCredits();
+			//Show win panel + game end reached
+		}
 	}
 
+	/// <summary>
+	/// Fails the game on this method call
+	/// </summary>
 	public void LevelFailed()
 	{
+		GamePause.isPauseEnabled = false;
+
+		float score = ScoreManager.score;
+
 		currentLevel = 0;
-		SaveAndResetScore();
+		SaveScore();
 		ResetCredits();
+
+		gameOverPanel.SetActive (true);
+		gameOverPanel.GetComponent<GameOverPanel> ().RefreshGameOverText (PlayerPrefs.GetFloat ("HighScore", 0),score);
+
+		ResetScore ();
 		//Go Main Menu
 		//Destroy This Script
 
-		Debug.Log("LEVEL FAILED");
+		//Debug.Log("LEVEL FAILED");
 	}
 
+	/// <summary>
+	/// Spawns new asteroid of type and amount of it
+	/// </summary>
+	/// <param name="asteroidType">Asteroid type.</param>
+	/// <param name="asteroidAmount">Asteroid amount.</param>
 	void NewAsteroid(string asteroidType,int asteroidAmount)
 	{
 		asteroidsToSpawn.Add(new AsteroidsToSpawn(asteroidType,asteroidAmount));
@@ -407,19 +489,31 @@ public class LevelManager : MonoBehaviour
 
 	void CheckReferences()
 	{
+		//if asteroid spawns arent found, get the component
 		if(spawnAsteroids == null)
 		{
 			spawnAsteroids = GetComponent<AsteroidSpawning>();
 		}
 	}
 
-	void SaveAndResetScore()
+	void SaveScore()
 	{
+		//If score from current game session bigger than before, save it
+		if(ScoreManager.score > PlayerPrefs.GetFloat("HighScore",0))
+		{
+			PlayerPrefs.SetFloat("HighScore",ScoreManager.score);
+		}
+	}
+
+	void ResetScore()
+	{
+		//reset score to 0 ( since it uses static variable has to be manually reset)
 		ScoreManager.score = 0;
 	}
 
 	void ResetCredits()
 	{
+		//reset credit to 0 ( since it uses static variable has to be manually reset)
 		CreditData.currentCredit = 0;
 	}
 

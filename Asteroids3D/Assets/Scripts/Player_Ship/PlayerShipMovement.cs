@@ -9,17 +9,12 @@ public class PlayerShipMovement : MonoBehaviour
 	public GameObject thrusterRight;
 
 	[Header("Ship movement settings")]
-	[SerializeField]
-	private float shipMovementForce = 0;
+	[SerializeField] private float shipMovementForce = 0; 
 	private float currentMovementForce = 0;
-	[SerializeField]
-	private float forceStrength = 0;
-	[SerializeField]
-	private float forceSmoothing = 0;
-	//[SerializeField]
-	//private float speedBoostForce = 0;
-	[SerializeField]
-	private float shipRotSpeed = 0;
+	[SerializeField] private float forceStrength = 0;
+	[SerializeField] private float forceSmoothing = 0;
+	//[SerializeField] private float speedBoostForce = 0;
+	[SerializeField] private float shipRotSpeed = 0;
 	
 	private bool movementEnabled = true;
 	
@@ -28,15 +23,10 @@ public class PlayerShipMovement : MonoBehaviour
 
 	#region properties
 
-	public bool MovementEnabled {
-		get 
-		{
-			return movementEnabled;
-		}
-		set
-		{
-			movementEnabled = value;
-		}
+	public bool MovementEnabled 
+	{
+		get {return movementEnabled;}
+		set {movementEnabled = value;}
 	}
 
 	#endregion
@@ -69,6 +59,8 @@ public class PlayerShipMovement : MonoBehaviour
 			{
 				//Slowly decrease the force of the ship to 0
 				rigidBody.velocity = Vector3.Lerp(rigidBody.velocity,Vector3.zero,Time.deltaTime * forceSmoothing);
+
+				//Remove thruster particle effects
 				thrusterForward.GetComponent<ParticleSystem>().Stop();
 			}
 
@@ -76,10 +68,13 @@ public class PlayerShipMovement : MonoBehaviour
 			if(Input.GetButton("RotLeft"))
 			{
 				transform.Rotate(Vector3.forward * Time.deltaTime * shipRotSpeed);
+
+				//Enable thruster particles
 				thrusterLeft.GetComponent<ParticleSystem>().Play();
 			}
 			else
 			{
+				//Disable thruster particles
 				thrusterLeft.GetComponent<ParticleSystem>().Stop();
 			}
 
@@ -87,10 +82,13 @@ public class PlayerShipMovement : MonoBehaviour
 			if(Input.GetButton("RotRight"))
 			{
 				transform.Rotate(Vector3.forward * Time.deltaTime * -shipRotSpeed);
+
+				//Enable thruster particles
 				thrusterRight.GetComponent<ParticleSystem>().Play();
 			}
 			else
 			{
+				//Disable thruster particles
 				thrusterRight.GetComponent<ParticleSystem>().Stop();
 			}
 

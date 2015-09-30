@@ -14,6 +14,6 @@ public class UltraSoundCoolDownDisplay : MonoBehaviour
 
 	void Update()
 	{
-		text.text = "UltraSound: " + UltraSound.currentCoolDown;
+		text.text = "UltraSound: " + UltraSound.currentCoolDown + "%";
 	}
 }

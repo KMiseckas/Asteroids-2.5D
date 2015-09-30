@@ -12,11 +12,19 @@ public class LevelCheck : MonoBehaviour
 
 	void Start()
 	{
+		//Checks if game level has been finished every 0.2 seconds ( slower than Update());
 		levelManager = GetComponent<LevelManager>();
+		InvokeRepeating ("SlowUpdate", 0, 0.2f);
 	}
 
-	void Update()
+	void SlowUpdate()
 	{
+		if(Application.loadedLevelName != "Menu" && !this.gameObject.activeSelf)
+		{
+			this.gameObject.SetActive(true);
+			checkIfSucceededLevel = true;
+		}
+
 		if(checkIfSucceededLevel)
 		{
 			if(!checkedReference)
@@ -24,13 +32,19 @@ public class LevelCheck : MonoBehaviour
 				CheckReference();
 			}
 
-			//Check asteroidParent, if its empty, the level has been succesfully completed ( unless player lost all lives before )
-			if(asteroidParent.transform.childCount <= 0 && PlayerLives.playerLives >= 0)
+			if(Application.loadedLevel == 1)
 			{
-				checkIfSucceededLevel = false;
+				//Check asteroidParent, if its empty, the level has been succesfully completed ( unless player lost all lives before )
+				if(asteroidParent && asteroidParent.transform.childCount <= 0 )
+					if(PlayerLives.playerLives >= 0)
+				{
+					{
+						checkIfSucceededLevel = false;
 
-				Debug.Log("CHECKED: LEVEL COMPLETED");
-				levelManager.LevelSucceeded();
+						//Debug.Log("CHECKED: LEVEL COMPLETED");
+						levelManager.LevelSucceeded();
+					}
+				}
 			}
 		}
 	}

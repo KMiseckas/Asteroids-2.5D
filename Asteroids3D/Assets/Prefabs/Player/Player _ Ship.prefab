@@ -38,6 +38,7 @@ GameObject:
   - 114: {fileID: 11479006}
   - 114: {fileID: 11479002}
   - 114: {fileID: 11479000}
+  - 114: {fileID: 11419306}
   m_Layer: 0
   m_Name: Player _ Ship
   m_TagString: Player
@@ -473,7 +474,7 @@ MonoBehaviour:
   bulletForce: 11
   destroyBulletTime: 1.70000005
   singleFireRate: .5
-  doubleFireRate: .660000026
+  doubleFireRate: .400000006
   tripleFireRate: .600000024
   missileCount: 10
   missileForce: 6
@@ -481,7 +482,7 @@ MonoBehaviour:
   mineCount: 6
   mineDeployRate: .200000003
   weaponType: Single_Fire
-  secWeaponType: Null
+  secWeaponType: Missile
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -511,6 +512,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c23f48e4ede2c47b550ff0669fb69c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11419306
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4234e0fac569e0644bbd55a027e661e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseText: {fileID: 0}
 --- !u!114 &11452468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -574,7 +587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphere: {fileID: 155580, guid: 08bdf31ae07f5ed4a9bf526797f2a6d9, type: 2}
-  ultraSoundCoolDownRate: .300000012
+  ultraSoundCoolDownRate: .200000003
   waveAmount: 5
   waveRate: .100000001
 --- !u!114 &11479002
@@ -600,7 +613,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97150c3974ca1794abb943994821baad, type: 3}
   m_Name: 

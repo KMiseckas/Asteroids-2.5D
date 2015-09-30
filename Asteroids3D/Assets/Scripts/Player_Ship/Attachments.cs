@@ -4,7 +4,7 @@ using System.Collections;
 public class Attachments : MonoBehaviour
 {
 
-	private string primaryWeapon;
+	private string primaryWeapon = "Single_Fire";
 	private string seconderyWeapon;
 	private string specialAbility;
 

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -28,30 +28,18 @@ public class AsteroidSpawning : MonoBehaviour
 	public GameObject smlDiamondAsteroid;
 
 	[Header("Start Force of Asteroids")]
-	[SerializeField]
-	private float normalAsteroidLrg;
-	[SerializeField]
-	private float normalAsteroidMed;
-	[SerializeField]
-	private float normalAsteroidSml;
-	[SerializeField]
-	private float heavyAsteroidLrg;
-	[SerializeField]
-	private float heavyAsteroidMed;
-	[SerializeField]
-	private float heavyAsteroidSml;
-	[SerializeField]
-	private float iceAsteroidLrg;
-	[SerializeField]
-	private float iceAsteroidMed;
-	[SerializeField]
-	private float iceAsteroidSml;
-	[SerializeField]
-	private float diamondAsteroidLrg;
-	[SerializeField]
-	private float diamondAsteroidMed;
-	[SerializeField]
-	private float diamondAsteroidSml;
+	[SerializeField] private float normalAsteroidLrg;
+	[SerializeField] private float normalAsteroidMed;
+	[SerializeField] private float normalAsteroidSml;
+	[SerializeField] private float heavyAsteroidLrg;
+	[SerializeField] private float heavyAsteroidMed;
+	[SerializeField] private float heavyAsteroidSml;
+	[SerializeField] private float iceAsteroidLrg;
+	[SerializeField] private float iceAsteroidMed;
+	[SerializeField] private float iceAsteroidSml;
+	[SerializeField] private float diamondAsteroidLrg;
+	[SerializeField] private float diamondAsteroidMed;
+	[SerializeField] private float diamondAsteroidSml;
 
 	List<Vector3> spawnPositions;
 

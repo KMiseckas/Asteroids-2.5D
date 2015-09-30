@@ -7,10 +7,8 @@ public class AICannon : MonoBehaviour
 	private float nextFire = 3;
 
 	[Header("AI Cannon Settings")]
-	[SerializeField]
-	private float fireRate = 0; //Set in inspector
-	[SerializeField]
-	private float fadeOutTime = 0.5f; //Set in inspector
+	[SerializeField] private float fireRate = 0; //Set in inspector
+	[SerializeField] private float fadeOutTime = 0.5f; //Set in inspector
 
 	private bool findingTarget = false;
 	private bool haveTarget = false;
@@ -22,13 +20,12 @@ public class AICannon : MonoBehaviour
 
 	private LineRenderer lineR;
 
-	public bool EnableAI {
-		get {
-			return enableAI;
-		}
-		set {
-			enableAI = value;
-		}
+	DisplayWeaponStats weapText;
+
+	public bool EnableAI 
+	{
+		get {return enableAI;}
+		set {enableAI = value;}
 	}
 
 	void Start()
@@ -38,34 +35,16 @@ public class AICannon : MonoBehaviour
 
 		findingTarget = false;
 		haveTarget = false;
+
+		weapText = GetComponent<DisplayWeaponStats> ();
+		weapText.DisplayUtility ("AI Cannon");
 	}
 
 	void Update()
 	{
 		if(enableAI)
 		{
-			//If no current target
-			if(currentTarget == null)
-			{
-				haveTarget = false;
-			}
-
-			//Find target for AI cannon
-			if(!findingTarget && !haveTarget)
-			{
-				if(asteroidParent.transform.childCount >= 1)
-				{
-					findingTarget = true;
-					StartCoroutine(FindClosestAsteroid());
-
-					Debug.Log("Closest Asteroid: " + currentTarget.gameObject.tag);
-				}
-			}
-
-			if(haveTarget)
-			{
-				ShootAsteroid();
-			}
+			ShootAsteroid();
 
 			if(fadeOutLine)
 			{
@@ -107,25 +86,47 @@ public class AICannon : MonoBehaviour
 
 	void ShootAsteroid()
 	{
+
 		//Shoot 
 		if(Time.time > nextFire)
 		{
-			nextFire = Time.time + fireRate;
+			//If no current target
+			if(currentTarget == null)
+			{
+				haveTarget = false;
+			}
+			
+			//Find target for AI cannon
+			if(!findingTarget && !haveTarget)
+			{
+				if(asteroidParent.transform.childCount >= 1)
+				{
+					findingTarget = true;
+					StartCoroutine(FindClosestAsteroid());
+					
+					//Debug.Log("Closest Asteroid: " + currentTarget.gameObject.tag);
+				}
+			}
 
-			lineR.SetPosition(0,transform.position);
-			lineR.SetPosition(1,currentTarget.position);
+			if(haveTarget)
+			{
+				nextFire = Time.time + fireRate;
 
-			currentTarget.gameObject.SendMessage("DestroyAsteroid");
+				lineR.SetPosition(0,transform.position);
+				lineR.SetPosition(1,currentTarget.position);
 
-			fadeOutLine = true;
+				currentTarget.gameObject.SendMessage("DestroyAsteroid");
+
+				fadeOutLine = true;
+			}
 		}
 	}
 
 	IEnumerator FindClosestAsteroid()
 	{
-		//Find the closes target to the cannon to shoot at
-		//Find squared distance rather than actual distance
 
+		//Find the closest target to the cannon to shoot at
+		//Find squared distance rather than actual distance
 		float currentDistance = Mathf.Infinity;
 
 		foreach(Transform child in asteroidParent.transform)
@@ -144,7 +145,7 @@ public class AICannon : MonoBehaviour
 		findingTarget = false;
 		haveTarget = true;
 
-		yield return new WaitForEndOfFrame();
+		yield return new WaitForEndOfFrame ();
 
 	}
 

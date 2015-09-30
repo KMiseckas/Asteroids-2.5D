@@ -8,12 +8,9 @@ public class RespawnShip : MonoBehaviour
 	AICannon aiCannon;
 	UltraSound ultraSound;
 
-	[SerializeField]
-	private float spawnBlinkAmount;
-	[SerializeField]
-	private float blinkShowTime;
-	[SerializeField]
-	private float blinkHideTime;
+	[SerializeField] private float spawnBlinkAmount;
+	[SerializeField] private float blinkShowTime;
+	[SerializeField] private float blinkHideTime;
 
 	void Awake()
 	{
@@ -41,12 +38,17 @@ public class RespawnShip : MonoBehaviour
 		gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
 		// + Other neccessary components to disable
 
+		//If player still has remaining health in this game, respawn the ship
 		if(PlayerLives.playerLives >= 0)
 		{
 			StartCoroutine(ReSpawnShip());
 		}
 	}
 
+	/// <summary>
+	/// Respawn the ship, with a invincibility timer added on spawn
+	/// </summary>
+	/// <returns>The spawn ship.</returns>
 	IEnumerator ReSpawnShip()
 	{
 		transform.position = new Vector3(0,0,0);

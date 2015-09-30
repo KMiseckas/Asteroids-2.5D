@@ -5,7 +5,7 @@ public class ShieldTextureAnimation : MonoBehaviour
 {
 	private float offset = 0;
 
-	IEnumerator Start()
+	public IEnumerator Start()
 	{
 		//Changes offset of texture on the y coordinate
 

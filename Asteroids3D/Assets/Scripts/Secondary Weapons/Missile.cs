@@ -13,22 +13,18 @@ public class Missile : MonoBehaviour
 	private Transform currentTransform;
 
 	private Rigidbody rigidBody;
-
+	
 	#region properties
-	public float MissileForce {
-		get {
-			return missileForce;
-		}
-		set {
-			missileForce = value;
-		}
+	public float MissileForce 
+	{
+		get {return missileForce;}
+		set {missileForce = value;}
 	}
 
 	#endregion
 
 	void Start()
 	{
-		//Get components
 		rigidBody = GetComponent<Rigidbody>();
 
 		asteroidParent = GameObject.FindGameObjectWithTag("AsteroidParent");
@@ -69,7 +65,7 @@ public class Missile : MonoBehaviour
 		{
 			float distance = Vector3.Distance(transform.position,asteroid.position);
 			
-			if(lowestDistance ==0)
+			if(lowestDistance == 0)
 			{
 				lowestDistance = distance;
 			}

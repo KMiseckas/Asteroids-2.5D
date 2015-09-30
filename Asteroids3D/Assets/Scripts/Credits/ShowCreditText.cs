@@ -14,7 +14,7 @@ public class ShowCreditText : MonoBehaviour
 
 	void Update()
 	{
-		creditText.text = "Credit: " + CreditData.currentCredit;
+		creditText.text = "Credit: " + CreditData.currentCredit + "c";
 	}
 
 }

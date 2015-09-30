@@ -8,7 +8,9 @@ public class Shield : MonoBehaviour
 	[SerializeField]
 	private int dmgToShieldOnHit = 0;
 	[SerializeField]
-	private int shieldRegenRateASec = 1;
+	private float shieldNextRegen = 0;
+	private float shieldRegenRate = 0.05f;
+	private int shieldRegenAmount = 1;
 
 	[Header("Condition Colors")]
 	public Color healthyCapacityShield;
@@ -22,13 +24,18 @@ public class Shield : MonoBehaviour
 
 	public static int currentShieldCapacity;
 
-	public bool ShieldEnabled {
-		get {
-			return shieldEnabled;
-		}
-		set {
-			shieldEnabled = value;
-		}
+	DisplayWeaponStats weapText;
+
+	public bool ShieldEnabled 
+	{
+		get {return shieldEnabled;}
+		set {shieldEnabled = value;}
+	}
+
+	void Start()
+	{
+		weapText = GetComponent<DisplayWeaponStats> ();
+		weapText.DisplayUtility ("Shield: 100%");
 	}
 	
 	void Update()
@@ -47,9 +54,29 @@ public class Shield : MonoBehaviour
 			}
 		}
 
+		if(!shieldEnabled)
+		{
+			if(Time.time > shieldNextRegen)
+			{
+				shieldNextRegen = Time.time + shieldRegenRate;
+
+				shieldCapacity += shieldRegenAmount;
+
+				if(shieldCapacity >= 100)
+				{
+					shieldEnabled = true;
+					shield.SetActive(true);
+					shield.GetComponent<Renderer>().material.color = healthyCapacityShield;
+					shield.GetComponent<ShieldTextureAnimation>().StartCoroutine("Start");
+				}
+
+				weapText.DisplayUtility("Shield: " + shieldCapacity.ToString() + "%");
+			}
+		}
+
 		if(shieldCapacity <= 0)
 		{
-			//shieldCapacity = Time.
+			shieldEnabled = false;
 		}
 
 	}
@@ -83,7 +110,9 @@ public class Shield : MonoBehaviour
 			shield.SetActive(false);
 		}
 
-		Debug.Log(currentShieldCapacity);
+		weapText.DisplayUtility("Shield: " + shieldCapacity.ToString() + "%");
+
+		//Debug.Log(currentShieldCapacity);
 	}
 
 }

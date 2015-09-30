@@ -9,15 +9,15 @@ GameObject:
   m_Component:
   - 4: {fileID: 464130}
   - 114: {fileID: 11400004}
-  - 114: {fileID: 11400006}
   - 114: {fileID: 11482878}
   - 114: {fileID: 11482880}
   - 114: {fileID: 11480164}
-  - 114: {fileID: 11430440}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11475618}
   - 114: {fileID: 11475620}
+  - 114: {fileID: 11477886}
+  - 114: {fileID: 11487012}
   m_Layer: 0
   m_Name: Level Manager ( IMPORTANT )
   m_TagString: LevelManager
@@ -60,6 +60,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 0
+  gameOverPanel: {fileID: 0}
+  winGamePanel: {fileID: 0}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -95,38 +97,6 @@ MonoBehaviour:
   diamondAsteroidLrg: 1.10000002
   diamondAsteroidMed: 1.5
   diamondAsteroidSml: 2
---- !u!114 &11400006
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23554a81a0d14fb49816c22e39134b6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startRect:
-    serializedVersion: 2
-    x: 10
-    y: 10
-    width: 75
-    height: 50
-  updateColor: 1
-  allowDrag: 1
-  frequency: .5
-  nbDecimal: 1
---- !u!114 &11430440
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7bdba82ba2d9964fa916912da30541a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11475618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -149,6 +119,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da23bb749ebed8c4b90804d67b25c828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11477886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b3fa2bfdaa2864fb4befcb6d83a165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  singleFire: 1
+  doubleFire: 0
+  tripleFire: 0
+  missiles: 0
+  mines: 0
+  shield: 0
+  ultraSound: 0
+  controlTweaks: 0
+  cannonAI: 0
+  sFEquipped: 1
+  dFEquipped: 0
+  tFEquipped: 0
+  msEquipped: 0
+  mnEquipped: 0
+  sEquipped: 0
+  usEquipped: 0
+  cTEquipped: 0
+  AIEquipped: 0
 --- !u!114 &11480164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -180,6 +179,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72db641a265709a41b14830a222a7bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelFailed: 0
+--- !u!114 &11487012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd7d0f4817b2e50429aca04eca7db1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &100100000

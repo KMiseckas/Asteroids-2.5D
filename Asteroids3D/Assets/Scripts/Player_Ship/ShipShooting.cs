@@ -33,97 +33,68 @@ public class ShipShooting : MonoBehaviour
 	public Transform missileLauncher;
 
 	[Header("Bullet Settings")] //Variables set in inspector
-	[SerializeField]
-	private float bulletForce = 0;
-	[SerializeField]
-	private float destroyBulletTime = 2.5f;
-	[SerializeField]
-	private float singleFireRate = 0;
-	[SerializeField]
-	private float doubleFireRate = 0;
-	[SerializeField]
-	private float tripleFireRate = 0;
+	[SerializeField] private float bulletForce = 0;
+	[SerializeField] private float destroyBulletTime = 2.5f;
+	[SerializeField] private float singleFireRate = 0;
+	[SerializeField] private float doubleFireRate = 0;
+	[SerializeField] private float tripleFireRate = 0;
 
 	[Header("Missile Settings")] //Variables set in inspector
-	[SerializeField]
-	private int missileCount = 4;
-	[SerializeField]
-	private float missileForce = 0;
-	[SerializeField]
-	private float missileFireRate = 0.5f;
-	//[SerializeField]
-	//private float missileSmoothness = 0;
+	[SerializeField] private int missileCount = 4;
+	[SerializeField] private float missileForce = 0;
+	[SerializeField] private float missileFireRate = 0.5f;
+	//[SerializeField] private float missileSmoothness = 0;
 
 	[Header("Mine Settings")] //Variables set in inspector
-	[SerializeField]
-	private int mineCount = 6;
-	[SerializeField]
-	private float mineDeployRate = 0.2f;
+	[SerializeField] private int mineCount = 6;
+	[SerializeField] private float mineDeployRate = 0.2f;
 
 	[Header("Primary Weapon Type")] //Variables set in inspector
-	[SerializeField]
-	private string weaponType;
+	[SerializeField] private string weaponType;
 
 	[Header("Secondary Weapon Type")] //Variables set in inspector
-	[SerializeField]
-	private string secWeaponType;
+	[SerializeField] private string secWeaponType;
 
 	AssignToParent assignToParent;
+
+	DisplayWeaponStats weapText;
 	
 
 	#region properties
-	public bool ShootingEnabled {
-		get {
-			return shootingEnabled;
-		}
-		set {
-			shootingEnabled = value;
-		}
+	public bool ShootingEnabled 
+	{
+		get {return shootingEnabled;}
+		set {shootingEnabled = value;}
 	}
 
-	public float SingleFireRate {
-		get {
-			return singleFireRate;
-		}
-		set {
-			singleFireRate = value;
-		}
+	public float SingleFireRate 
+	{
+		get {return singleFireRate;}
+		set {singleFireRate = value;}
 	}
 
-	public float DoubleFireRate {
-		get {
-			return doubleFireRate;
-		}
-		set {
-			doubleFireRate = value;
-		}
+	public float DoubleFireRate 
+	{
+		get {return doubleFireRate;}
+		set {doubleFireRate = value;}
 	}
 
-	public float TripleFireRate {
-		get {
-			return tripleFireRate;
-		}
-		set {
-			tripleFireRate = value;
-		}
+	public float TripleFireRate 
+	{
+		get {return tripleFireRate;}
+		set {tripleFireRate = value;}
 	}
 
-	public string SecWeaponType {
-		get {
-			return secWeaponType;
-		}
-		set {
-			secWeaponType = value;
-		}
+	public string SecWeaponType 
+	{
+		get {return secWeaponType;}
+		set {secWeaponType = value;}
 	}
 
-	public string WeaponType {
-		get {
-			return weaponType;
-		}
-		set {
-			weaponType = value;
-		}
+	public string WeaponType 
+	{
+		get {return weaponType;}
+		set {weaponType = value;}
 	}
 
 	#endregion
@@ -132,13 +103,20 @@ public class ShipShooting : MonoBehaviour
 	{
 		levelManager = GameObject.FindGameObjectWithTag("LevelManager");
 		assignToParent = levelManager.GetComponent<AssignToParent>();
+
+		if(secWeaponType != null)
+		{
+			weapText = GetComponent<DisplayWeaponStats>();
+			weapText.DisplaySpecial("Missiles: 10");
+
+		}
 	}
 
 	void Update()
 	{
 		if(shootingEnabled)
 		{
-			//Primary weapon
+			//Primary weapon input
 			if(Input.GetButton("Shoot"))
 			{
 				switch(weaponType)
@@ -228,7 +206,7 @@ public class ShipShooting : MonoBehaviour
 
 			}
 
-			//Second weapon
+			//Second weapon input
 			if(Input.GetButton("Shoot_Secondary"))
 			{
 				switch(secWeaponType)
@@ -239,6 +217,8 @@ public class ShipShooting : MonoBehaviour
 						if(missileCount >= 1)
 						{
 							missileCount --;
+
+							weapText.DisplaySpecial("Missiles: " + missileCount.ToString());
 
 							nextFireMissile = Time.time + missileFireRate;
 
